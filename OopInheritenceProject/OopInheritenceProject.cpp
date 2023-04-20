@@ -8,6 +8,12 @@ class Person
 protected:
     string name;
     int age;
+
+    void Method()
+    {
+        cout << name << " - Base Method work\n";
+    }
+
 public:
     Person(string name, int age)
         : name{ name }, age{ age } 
@@ -23,6 +29,12 @@ public:
     {
         return "Name: " + name + " (" + to_string(age) + ")";
     }
+
+    void Method2()
+    {
+        cout << name << " - Base Method2 work\n";
+    }
+
     ~Person()
     {
         cout << this << " Person destruct\n";
@@ -70,6 +82,10 @@ public:
         return Person::ToString() + " Group: " + groupName;
     }
 
+    using Person::Method;
+
+    void Method2() = delete;
+
     ~Student()
     {
         cout << this << " Student destruct\n";
@@ -93,5 +109,7 @@ int main()
     //User user("Bob", 23);
 
     Student student("Bob", 23);
+    ((Person)student).Method2();
 
+    static_cast<Person>(student).Method2();
 }
